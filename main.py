@@ -30,7 +30,7 @@ def genetic_algorithm(population_size, generations, mutation_rate):
 
     for _ in range(generations):
         evaluated_population = [(chromosome, eval_func(chromosome)) for chromosome in population]
-        evaluated_population.sort(key=lambda x: x[1], reverse=True)
+        evaluated_population.sort(key=lambda x: x[1][0], reverse=True)
         new_population = []
 
         for i in range(0, len(evaluated_population), 2):
@@ -43,7 +43,7 @@ def genetic_algorithm(population_size, generations, mutation_rate):
 
         population = new_population
 
-    best_chromosome, best_fitness = max(evaluated_population, key=lambda x: x[1])
+    best_chromosome, best_fitness = max(evaluated_population, key=lambda x: x[1][0])
     return best_chromosome, best_fitness
 
 # Параметри генетичного алгоритму
@@ -54,5 +54,4 @@ mutation_rate = 0.1
 best_chromosome, best_fitness = genetic_algorithm(population_size, generations, mutation_rate)
 
 print(f"Найкраща хромосома: {best_chromosome}")
-print(f"Найкраще значення функції: {best_fitness}")
-
+print(f"Найкраще значення функції: {best_fitness[0]}")
