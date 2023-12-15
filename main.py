@@ -21,7 +21,7 @@ def crossover(parent1, parent2):
 def mutate(chromosome, mutation_rate):
     for i in range(len(chromosome)):
         if random.random() < mutation_rate:
-            chromosome[i] = random.uniform(-10, 10)
+            chromosome[i] += random.uniform(-1, 1)  # Мутація випадковим значенням з діапазону (-1, 1)
     return chromosome
 
 # Генетичний алгоритм
@@ -41,7 +41,7 @@ def genetic_algorithm(population_size, generations, mutation_rate):
             child2 = mutate(child2, mutation_rate)
             new_population.extend([child1, child2])
 
-        population = new_population
+        population = new_population[:population_size]  # Відбір популяції до потрібного розміру
 
     best_chromosome, best_fitness = max(evaluated_population, key=lambda x: x[1][0])
     return best_chromosome, best_fitness
